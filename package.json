@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon index.js",
+    "dev": "nodemon index.js",
     "migrate": "npx knex migrate:latest",
     "rollback": "npx knex migrate:rollback"
   },
@@ -19,11 +19,13 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.2",
     "morgan": "^1.10.0",
     "pg": "^8.10.0",
-    "stripe": "^11.14.0"
+    "stripe": "^11.14.0",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"

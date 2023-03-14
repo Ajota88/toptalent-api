@@ -1,8 +1,13 @@
 const authServices = require("../services/auth.services");
 const jwt = require("jsonwebtoken");
+const yup = require("yup");
 
-const register = async (req, res, next) => {
-  res.send("test");
+const register = async (req, res) => {
+  try {
+    res.send("pass");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const login = async (req, res) => {};
