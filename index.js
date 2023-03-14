@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const mainRouter = require("./routes");
+const errorHandlerMiddleware = require("./middlewares/errorHandler");
 
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
@@ -18,11 +19,7 @@ app.use(morgan("tiny"));
 app.use("/api", mainRouter);
 
 //Error handler
-app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errorMessage = err.message || "Something went wrong";
-  return res.status(errorStatus).send(errorMessage);
-});
+app.use(errorHandlerMiddleware);
 
 app.listen(PORT, () => {
   console.log(`app listening in port ${PORT}`);
