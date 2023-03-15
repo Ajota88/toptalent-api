@@ -9,6 +9,16 @@ const createCategory = async (req, res, next) => {
   }
 };
 
+const getAllCategories = async (req, res, next) => {
+  try {
+    const categories = await categoryServices.getAllCategories();
+    res.status(200).send(categories);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };

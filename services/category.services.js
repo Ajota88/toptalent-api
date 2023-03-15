@@ -35,6 +35,12 @@ const createCategory = async ({ name, cover }) => {
   return newCategory;
 };
 
+const getAllCategories = async () => {
+  const categories = await db.select("*").from("categories");
+  return categories;
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
