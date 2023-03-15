@@ -46,7 +46,21 @@ const register = async (user) => {
   return newUser;
 };
 
-const login = async ({ username, password }) => {};
+const login = async ({ username, password }) => {
+  //CHECK IF USER IS REGISTERED
+  const userFound = await db("users").where("username", username);
+  if (userFound.length === 0) throw new BadRequestError("User not Found");
+
+  //CHECK PASSWORD
+  const isPasswordCorrect = await bcrypt.compare(
+    password,
+    userFound[0].password
+  );
+  if (!isPasswordCorrect)
+    throw new BadRequestError("Wrong username or password");
+  const { password: userPassword, ...response } = userFound[0];
+  return response;
+};
 
 module.exports = {
   register,
