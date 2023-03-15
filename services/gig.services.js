@@ -1,7 +1,37 @@
 const db = require("../db/db");
 const cloudinary = require("../cloudinary/cloudinary");
 
-const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {};
+const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
+  const allGigs = await db("gigs")
+    .join("users", "users.id", "=", "gigs.userId")
+    .join("categories", "gigs.categoryId", "=", "categories.id")
+    .select(
+      "gigs.*",
+      "users.username",
+      "users.img",
+      "categories.cover as categoryCover",
+      "categories.name as category"
+    )
+    .where(function () {
+      if (cat) {
+        this.where("categoryId", cat);
+      }
+      if (minPrice) {
+        this.where("price", ">", minPrice);
+      }
+      if (maxPrice) {
+        this.where("price", "<", maxPrice);
+      }
+      if (search) {
+        this.where("title", "ilike", `%${search}%`);
+      }
+    });
+
+  if (!allGigs) {
+    throw new Error("No gigs found");
+  }
+  return allGigs;
+};
 
 const getGig = async (gigId) => {};
 

@@ -1,7 +1,14 @@
 const gigServices = require("../services/gig.services");
 const UnauthenticatedError = require("../errors/unauthenticated");
 
-const getAllGigs = async (req, res) => {};
+const getAllGigs = async (req, res, next) => {
+  try {
+    const response = await gigServices.getAllGigs(req.query);
+    res.status(200).send(response);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const getGig = async (req, res) => {};
 
