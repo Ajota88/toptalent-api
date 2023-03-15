@@ -1,12 +1,13 @@
 const jwt = require("jsonwebtoken");
+const UnauthenticatedError = require("../errors/unauthenticated");
 
 const verifyToken = (req, res, next) => {
   const token = req.cookies.accessToken;
-  if (!token) throw new Error("You are not authenticated");
+  if (!token) throw new UnauthenticatedError("You are not authenticated");
 
   jwt.verify(token, process.env.JWT_KEY, async (err, payload) => {
     if (err) {
-      return res.status(403).send("Token is not valid");
+      throw new UnauthenticatedError("Token is not valid");
     }
     req.userId = payload.id;
     req.isSeller = payload.isSeller;
