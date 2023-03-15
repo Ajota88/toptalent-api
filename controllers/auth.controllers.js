@@ -1,12 +1,14 @@
 const authServices = require("../services/auth.services");
 const jwt = require("jsonwebtoken");
-const yup = require("yup");
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   try {
-    res.send("pass");
+    const { confirmPassword, ...userInfo } = req.body;
+    const newUser = await authServices.register(userInfo);
+
+    res.status(201).json({ message: "user created succesfully" });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
