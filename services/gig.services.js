@@ -57,7 +57,11 @@ const createGig = async (gigInfo) => {
   }
 
   const newGig = await db("gigs")
-    .insert({ ...gigInfo, cover: coverCloudinaryId })
+    .insert({
+      ...gigInfo,
+      cover: coverCloudinaryId,
+      features: JSON.stringify(gigInfo.features),
+    })
     .returning("id");
   return newGig;
 };

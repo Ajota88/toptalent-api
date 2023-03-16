@@ -62,7 +62,14 @@ const login = async ({ username, password }) => {
   return response;
 };
 
+const getUserInfo = async (userId) => {
+  const user = await db("users").where("id", userId);
+  const { password: userPassword, ...response } = user[0];
+  return response;
+};
+
 module.exports = {
   register,
   login,
+  getUserInfo,
 };

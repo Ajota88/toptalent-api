@@ -38,8 +38,18 @@ const logout = async (req, res) => {
     .send("Logout successfully");
 };
 
+const getUserInfo = async (req, res) => {
+  try {
+    const user = await authServices.getUserInfo(req.userId);
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send("error");
+  }
+};
+
 module.exports = {
   register,
   login,
   logout,
+  getUserInfo,
 };
