@@ -29,7 +29,17 @@ const createGig = async (req, res, next) => {
   }
 };
 
-const deleteGig = async (req, res) => {};
+const deleteGig = async (req, res, next) => {
+  try {
+    let { id } = req.params;
+    let gigId = Number(id);
+
+    const response = await gigServices.deleteGig({ userId: req.userId, gigId });
+    res.status(202).json({ message: "gig deleted succesfully" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getAllGigs,

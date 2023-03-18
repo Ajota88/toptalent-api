@@ -7,6 +7,7 @@ const {
 } = require("../controllers/auth.controllers");
 const { schemaValidator } = require("../middlewares/schemaValidator");
 const registerSchema = require("../schemas/registerSchema");
+const { verifyToken } = require("../middlewares/jwtVerification");
 
 const router = express.Router();
 

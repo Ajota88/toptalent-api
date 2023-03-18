@@ -1,5 +1,7 @@
 const db = require("../db/db");
 const cloudinary = require("../cloudinary/cloudinary");
+const BadRequestError = require("../errors/badRequest");
+const UnauthenticatedError = require("../errors/unauthenticated");
 
 const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
   const allGigs = await db("gigs")
@@ -66,7 +68,20 @@ const createGig = async (gigInfo) => {
   return newGig;
 };
 
-const deleteGig = async ({ userId, gigId }) => {};
+const deleteGig = async ({ userId, gigId }) => {
+  const gig = await db.select("*").from("gigs").where("id", gigId);
+
+  if (!gig.length) {
+    throw new BadRequestError("Gig not found");
+  }
+
+  if (gig[0].userId !== userId) {
+    throw new UnauthenticatedError("You can only delete your gigs");
+  }
+
+  const gigDeleted = await db("gigs").where("id", gigId).del().returning("id");
+  return gigDeleted;
+};
 
 module.exports = {
   getAllGigs,
