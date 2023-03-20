@@ -1,6 +1,7 @@
 const db = require("../db/db");
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
+//For Testing,before stripe configuration
 const createOrder = async ({ gigId, userId }) => {
   const gig = await db.select("*").from("gigs").where("id", gigId);
   const newOrder = await db("orders")
@@ -44,6 +45,7 @@ const paymentIntent = async ({ gigId, userId }) => {
       sellerId: gig[0].userId,
       payment_intent: payment.id,
       title: gig[0].title,
+      img: gig[0].cover,
     })
     .returning("id");
 

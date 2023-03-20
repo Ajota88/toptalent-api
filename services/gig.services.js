@@ -35,7 +35,18 @@ const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
   return allGigs;
 };
 
-const getGig = async (gigId) => {};
+const getGig = async (gigId) => {
+  const gig = await db("gigs")
+    .join("users", "users.id", "=", "gigs.userId")
+    .select("gigs.*", "users.username", "users.img")
+    .where("gigs.id", gigId);
+
+  if (!gig.length) {
+    throw new BadRequestError("Gig not found");
+  }
+
+  return gig[0];
+};
 
 const createGig = async (gigInfo) => {
   //uploading img to cloudinary

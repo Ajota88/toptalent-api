@@ -10,7 +10,17 @@ const getAllGigs = async (req, res, next) => {
   }
 };
 
-const getGig = async (req, res) => {};
+const getGig = async (req, res, next) => {
+  try {
+    let { id } = req.params;
+    let gigId = Number(id);
+
+    const response = await gigServices.getGig(gigId);
+    res.status(200).send(response);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const createGig = async (req, res, next) => {
   try {
