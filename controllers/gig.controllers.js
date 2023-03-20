@@ -47,6 +47,18 @@ const deleteGig = async (req, res, next) => {
     const response = await gigServices.deleteGig({ userId: req.userId, gigId });
     res.status(202).json({ message: "gig deleted succesfully" });
   } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const getUserGigs = async (req, res, next) => {
+  try {
+    console.log(req.userId);
+    const userGigs = await gigServices.getUserGigs(req.userId);
+    res.status(202).send(userGigs);
+  } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -56,4 +68,5 @@ module.exports = {
   getGig,
   createGig,
   deleteGig,
+  getUserGigs,
 };

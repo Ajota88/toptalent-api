@@ -94,9 +94,15 @@ const deleteGig = async ({ userId, gigId }) => {
   return gigDeleted;
 };
 
+const getUserGigs = async (userId) => {
+  const userGigs = await db("gigs").where("userId", userId);
+  return userGigs;
+};
+
 module.exports = {
   getAllGigs,
   getGig,
   createGig,
   deleteGig,
+  getUserGigs,
 };
