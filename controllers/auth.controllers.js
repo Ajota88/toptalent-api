@@ -35,7 +35,7 @@ const logout = async (req, res) => {
       secure: true,
     })
     .status(200)
-    .send("Logout successfully");
+    .json({ message: "Logout successfully" });
 };
 
 const getUserInfo = async (req, res) => {
