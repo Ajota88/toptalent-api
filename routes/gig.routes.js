@@ -6,6 +6,7 @@ const {
   createGig,
   deleteGig,
   getUserGigs,
+  updateGig,
 } = require("../controllers/gig.controllers");
 const gigSchema = require("../schemas/gigSchema");
 const { schemaValidator } = require("../middlewares/schemaValidator");

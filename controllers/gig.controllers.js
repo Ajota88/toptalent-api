@@ -81,4 +81,5 @@ module.exports = {
   createGig,
   deleteGig,
   getUserGigs,
+  updateGig,
 };
