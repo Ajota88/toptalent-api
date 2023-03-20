@@ -54,11 +54,23 @@ const deleteGig = async (req, res, next) => {
 
 const getUserGigs = async (req, res, next) => {
   try {
-    console.log(req.userId);
     const userGigs = await gigServices.getUserGigs(req.userId);
     res.status(202).send(userGigs);
   } catch (error) {
     console.log(error);
+    next(error);
+  }
+};
+
+const updateGig = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const updatedGig = await gigServices.updateGig({
+      gigInfo: req.body,
+      gigId: id,
+    });
+    res.status(202).json({ message: "Gig updated" });
+  } catch (error) {
     next(error);
   }
 };

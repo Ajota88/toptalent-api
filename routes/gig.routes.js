@@ -17,5 +17,6 @@ router.get("/user", verifyToken, getUserGigs);
 router.get("/:id", getGig);
 router.post("/", verifyToken, schemaValidator(gigSchema), createGig);
 router.delete("/:id", verifyToken, deleteGig);
+router.put("/:id", verifyToken, updateGig);
 
 module.exports = router;

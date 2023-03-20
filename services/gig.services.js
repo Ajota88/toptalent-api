@@ -99,10 +99,16 @@ const getUserGigs = async (userId) => {
   return userGigs;
 };
 
+const updateGig = async ({ gigInfo, gigId }) => {
+  const response = await db("gigs").where("id", gigId).update(gigInfo);
+  return response;
+};
+
 module.exports = {
   getAllGigs,
   getGig,
   createGig,
   deleteGig,
   getUserGigs,
+  updateGig,
 };
