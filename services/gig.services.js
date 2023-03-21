@@ -30,7 +30,7 @@ const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
     });
 
   if (!allGigs) {
-    throw new Error("No gigs found");
+    throw new BadRequestError("No gigs found");
   }
   return allGigs;
 };
