@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "migrate": "npx knex migrate:latest",
-    "rollback": "npx knex migrate:rollback"
+    "rollback": "npx knex migrate:rollback",
+    "build": "yarn && yarn migrate"
   },
   "keywords": [],
   "author": "",
