@@ -1,8 +1,3 @@
-// Update with your config settings.
-
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
 module.exports = {
   development: {
     client: "pg",
@@ -12,10 +7,7 @@ module.exports = {
       user: "toptalentv2_db_6l8v_user",
       password: "GoBSEJj1s1UH7ullevWshstetX4MbrQU",
     },
-    pool: {
-      min: 2,
-      max: 10,
-    },
+
     migrations: {
       directory: "./db/migrations",
     },
