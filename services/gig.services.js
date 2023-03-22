@@ -29,9 +29,9 @@ const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
       }
     });
 
-  if (allGigs.length === 0) {
+  /*  if (allGigs.length === 0) {
     throw new BadRequestError("No gigs found");
-  }
+  } */
   return allGigs;
 };
 
