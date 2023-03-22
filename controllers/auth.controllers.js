@@ -23,7 +23,11 @@ const login = async (req, res, next) => {
       process.env.JWT_KEY
     );
     res
-      .cookie("accessToken", token, { httpOnly: true, sameSite: "none" })
+      .cookie("accessToken", token, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      })
       .status(200)
       .json(user);
   } catch (error) {
