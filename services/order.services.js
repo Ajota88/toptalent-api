@@ -56,7 +56,13 @@ const confirmPayment = async (paymentIntent) => {
   const orderUpdated = await db("orders")
     .where("payment_intent", paymentIntent)
     .update({ isCompleted: true })
-    .returning("id");
+    .returning(["id", "gigId"]);
+
+  const { gigId } = orderUpdated[0];
+
+  await db("gigs")
+    .where("id", gigId)
+    .update({ sales: db.raw("?? + 1", ["sales"]) });
 
   return orderUpdated;
 };

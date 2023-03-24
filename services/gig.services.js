@@ -3,7 +3,14 @@ const cloudinary = require("../cloudinary/cloudinary");
 const BadRequestError = require("../errors/badRequest");
 const UnauthenticatedError = require("../errors/unauthenticated");
 
-const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
+const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search, sort }) => {
+  let order;
+  if (sort === "created_at") {
+    order = "asc";
+  } else if (sort === "sales") {
+    order = "desc";
+  }
+
   const allGigs = await db("gigs")
     .join("users", "users.id", "=", "gigs.userId")
     .join("categories", "gigs.categoryId", "=", "categories.id")
@@ -27,7 +34,8 @@ const getAllGigs = async ({ cat, minPrice = 0, maxPrice, search }) => {
       if (search) {
         this.where("title", "ilike", `%${search}%`);
       }
-    });
+    })
+    .orderBy(sort, order);
 
   /*  if (allGigs.length === 0) {
     throw new BadRequestError("No gigs found");
